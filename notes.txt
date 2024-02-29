@@ -58,3 +58,9 @@ we could use try catch but instead express-async-handler is used
     - `     const conn = await mongoose.connect(process.env.MONGO_URI); `
     - add conn to an async func -> iport and run func in server.js
     - YAYAY
+
+* Models (schemas)
+    - model folder -> goalModel.js
+    - import mongoose -> define schema 
+    - export as ` module.exports = mongoose.model("Goal", goalSchema); `
+    - import in controller 

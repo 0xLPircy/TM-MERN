@@ -49,3 +49,12 @@ added middleware to read it for json and utf in server
 
 (in mongo everything will be promise so we will make our req res funcs async)
 we could use try catch but instead express-async-handler is used
+
+* SETTING UP MONGODB
+    - organization -> project -> collection
+    - compass in laptop app
+    - driver in env
+    - config folder -> db.js file
+    - `     const conn = await mongoose.connect(process.env.MONGO_URI); `
+    - add conn to an async func -> iport and run func in server.js
+    - YAYAY

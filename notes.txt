@@ -46,3 +46,6 @@ added middleware to read it for json and utf in server
         we pass this to overwrite default, 
     - err has .message
         has .stack ie more info on the error
+
+(in mongo everything will be promise so we will make our req res funcs async)
+we could use try catch but instead express-async-handler is used

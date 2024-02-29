@@ -33,3 +33,16 @@
         ` router.route("/").get(getGoals).post(setGoal);
             router.route('/:id').put(updateGoal).delete(deleteGoal);
         `
+
+(Getting body data put in postman body area abhi)
+added middleware to read it for json and utf in server
+     ` app.use(express.json()); //to get values from body as they are undefined warna
+        app.use(express.urlencoded({ extended: false })); //middleware to accept data from body
+    `
+* Error Handling
+    - we want to overwrite express ka default erorr handler caus eits not pretty enoiugh
+    - create middleware file
+    - (err, req, res, next)
+        we pass this to overwrite default, 
+    - err has .message
+        has .stack ie more info on the error

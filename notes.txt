@@ -5,3 +5,31 @@
     - Read: /api/xyz, success: 200+payload
     - Update: /api/xyz/1+payload, success: 200
     - Delete: /api/xyz/1, success: 200
+
+* Imports
+    - express and env is imported with require
+    - const app = express();
+
+* app.get("/api/goals", (req, res) => {
+  res.status(200).json({ message: "getGoals" });
+});
+    - request and response is added, 
+        so when request is api/goals, response is the json
+    - .status makes status 200
+
+* Router
+    - ` const router = express.Router(); `
+    - ` app.use("/api/goals", require("./routes/goalRoutes")); `
+        now when /api/goals is called, goes in this file. 
+
+* Controller
+    - controller ke consts are called instead of definign what happends in a re, res, in the router only
+    - so,
+        Router: `router.get("/", getGoals); `
+        Controller: ` const getGoals = (req, res) => {
+                        res.status(200).json({ message: 'Get goals' })
+                    } `
+    - Can chain route requests
+        ` router.route("/").get(getGoals).post(setGoal);
+            router.route('/:id').put(updateGoal).delete(deleteGoal);
+        `

@@ -5,7 +5,8 @@ const Goal = require("../models/goalModel");
 // @route  GET /api/goals
 // @access Private
 const getGoals = expressAsyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Get goals" });
+  const goals = await Goal.find();
+  res.status(200).json(goals);
 });
 
 // @desc   Set Goals
@@ -18,21 +19,39 @@ const setGoal = expressAsyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("please add a tect field");
   }
-  res.status(200).json({ message: "Set goal" });
+  const goal = await Goal.create({
+    text: req.body.text,
+  });
+  res.status(200).json(goal);
 });
 
 // @desc   Update Goal
 // @route  PUT /api/goals/:id
 // @access Private
 const updateGoal = expressAsyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Update goal ${req.params.id}` });
+  const goal = await Goal.findById(req.params.id);
+  if (!goal) {
+    res.status(400);
+    throw new Error("goal not foufnt");
+  }
+  const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  res.status(200).json(updatedGoal);
 });
 
 // @desc   Delete Goals
 // @route  DELETE /api/goals/:id
 // @access Private
 const deleteGoal = expressAsyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Delete goal ${req.params.id}` });
+  const goal = await Goal.findById(req.params.id);
+  if (!goal) {
+    res.status(400);
+    throw new Error("goal not foufnt");
+  }
+  // const deletedGoal = await Goal.findByIdAndDelete(req.params.id);
+  await goal.remove();
+  res.status(200).json({ id: req.params.id });
 });
 
 module.exports = {

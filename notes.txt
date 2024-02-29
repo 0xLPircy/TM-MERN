@@ -63,4 +63,19 @@ we could use try catch but instead express-async-handler is used
     - model folder -> goalModel.js
     - import mongoose -> define schema 
     - export as ` module.exports = mongoose.model("Goal", goalSchema); `
-    - import in controller 
+    - import in controller
+    - GET the goals by
+        `   const goals = await Goal.find(); //find function can later find by user or some shit
+            res.status(200).json(goals);  `
+    - POST send goal by body url encoded area
+        `  const goal = await Goal.create({
+            text: req.body.text,
+            }); `
+    - PUT, update goal by
+           ` const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+            }); `
+        // passed id, the update, and option new that will create if doesnt exist    
+    - DELETE
+       ` const goal = await Goal.findById(req.params.id);
+        await goal.remove(); `

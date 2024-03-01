@@ -79,3 +79,21 @@ we could use try catch but instead express-async-handler is used
     - DELETE
        ` const goal = await Goal.findById(req.params.id);
         await goal.remove(); `
+
+(we made user ke roiutes after this)
+
+(added bcrypt.js to encrypt password,, jwt to create a token)
+
+* registering a new user
+    - check if fields populated with if (!name...) etc
+    - check if user exist   
+        ` const userExists = await User.findOne({ email }); `
+    - hash password
+        ` const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt); `
+    - create
+        `   const user = await User.create({
+                name,
+                email,
+                password: hashedPassword,
+            }); `

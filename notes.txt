@@ -130,3 +130,27 @@ we could use try catch but instead express-async-handler is used
             });
         };
     - we added ENV jwtsecret, used sign to create token and set expire date
+
+* Protect routes?
+    - we put a middle ware it will work when req res cycle
+    - if we send req to router, this will check token
+    - it will check through https headers ka authorisation object(?)
+    - check if authorisation is there 
+        and if it starts with Bearer, cause the format is `Bearer hfiuw`
+        ` if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")) `
+    - Get Token from header by splitting Bearer iuwfhi
+        ` token = req.headers.authorization.split(" ")[1] `
+        (all in a try catch)
+    - Verify Token using jwt ka verify function
+        ` const decoded = jwt.verify(token, process.env.JWT_SECRET) `
+    - find the user who has same id
+        assign that to req ka user
+        ` req.user = await User.findById(decoded.id).select(-password);
+(?) (maybe this is just checking if user exists but securely?)
+    - now since we have user assigned by id to req.user, we can find and use their details in controller
+      ` const { _id, name, email } = await User.findById(req.user.id);
+        res.status(200).json({
+            id: _id,
+            name,
+            email,
+        }); `

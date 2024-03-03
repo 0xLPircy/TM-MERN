@@ -23,7 +23,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
     } catch (error) {
       console.log(error);
       res.status(401);
-      throw new Error("not auth");
+      throw new Error("not auth, not found");
     }
   }
 

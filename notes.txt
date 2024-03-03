@@ -170,8 +170,26 @@ kaise? Above, we take token which is encrypted id, we check if id exists in our 
         we add req.user.id in the find (we got req user from middleware)
         ` const goals = await Goal.find({ user: req.user.id }); `
     - SET goals
-        add user whens etting
+        add user when setting
         `   const goal = await Goal.create({
             text: req.body.text,
             user: req.user.id,
             }); `
+    RN ACCESS DEPENDS ON TOKEN IN HEADER, (custom input for now)
+        THATS WHAT PROTECTED MEANS. 
+    - UPDATE and DELETE
+        > get user by the req.user ka id
+        ` const user = await User.findById(req.user.id); `
+        > check if user exist (UNEEDED)
+          ` if (!user) {
+                res.status(401);
+                throw new Error("user not found");
+            } `
+        > check if login user matches goal user
+          ` if (goal.user.toString() !== user.id) {
+                res.status(401);
+                throw new Error("user not authorised not match");
+            } `
+        > If no error comes delete/update is executed
+          ` await goal.deleteOne(); `
+        

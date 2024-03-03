@@ -1,5 +1,8 @@
 // starts with "npm run server"
 
+// DOUBTS
+what does res.status do??
+
 * CRUD
     - Create: /api/xyz+payload, success:201+location
     - Read: /api/xyz, success: 200+payload
@@ -97,3 +100,33 @@ we could use try catch but instead express-async-handler is used
                 email,
                 password: hashedPassword,
             }); `
+    - if created can return respose as
+        ` res.status(201).json({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            token: generateToken(user._id),
+          }); `
+
+* authenticate a user
+    - get email and password from req.body
+        ` const { email, password } = req.body; `
+    - check if email exists 
+        ` const user = await User.findOne({ email }); `
+    - validate password
+        ` if (user && (await bcrypt.compare(password, user.password))) `
+    - return on success
+        ` res.json({
+                _id: user.id,
+                name: user.name,
+                email: user.email,
+                token: generateToken(user._id),
+            }) `
+
+* TO generate JWT Tokens
+    - ` const generateToken = (id) => {
+        return jwt.sign({ id }, process.env.JWT_SECRET, {
+            expiresIn: "30d",
+            });
+        };
+    - we added ENV jwtsecret, used sign to create token and set expire date

@@ -35,12 +35,12 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      token: generateToken(user._id),
     });
   } else {
     res.status(400);
     throw new Error("Invalid user data");
   }
-  res.json({ message: "Register USer" });
 });
 
 // @desc   Authenticater User
@@ -53,12 +53,16 @@ const loginUser = expressAsyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
   //   check password
   if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({ _id: user.id, name: user.name, email: user.email });
+    res.json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
   } else {
     res.status(400);
     throw new Error("Invalid credentials");
   }
-  res.json({ message: "Login USer" });
 });
 
 // @desc   Get user data
@@ -67,6 +71,13 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 const getMe = expressAsyncHandler(async (req, res) => {
   res.json({ message: "USer data" });
 });
+
+// Generate Token
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
 
 module.exports = {
   registerUser,

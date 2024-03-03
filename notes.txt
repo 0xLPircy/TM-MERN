@@ -193,3 +193,5 @@ kaise? Above, we take token which is encrypted id, we check if id exists in our 
         > If no error comes delete/update is executed
           ` await goal.deleteOne(); `
         
+* Little about redux
+    - store hota hai jisme reducers add karte hai

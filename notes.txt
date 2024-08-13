@@ -8,6 +8,7 @@ what does res.status do??
     - Read: /api/xyz, success: 200+payload
     - Update: /api/xyz/1+payload, success: 200
     - Delete: /api/xyz/1, success: 200
+    
 
 * Imports
     - express and env is imported with require

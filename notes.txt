@@ -27,7 +27,7 @@ what does res.status do??
         now when /api/goals is called, goes in this file. 
 
 * Controller
-    - controller ke consts are called instead of definign what happends in a re, res, in the router only
+    - controller ke consts are called instead of definign what happends in a req, res, in the router only
     - so,
         Router: `router.get("/", getGoals); `
         Controller: ` const getGoals = (req, res) => {
@@ -52,7 +52,7 @@ added middleware to read it for json and utf in server
         has .stack ie more info on the error
 
 (in mongo everything will be promise so we will make our req res funcs async)
-we could use try catch but instead express-async-handler is used
+we could use try catch but instead express-async-handler is used (external package download)
 
 * SETTING UP MONGODB
     - organization -> project -> collection
@@ -60,7 +60,7 @@ we could use try catch but instead express-async-handler is used
     - driver in env
     - config folder -> db.js file
     - `     const conn = await mongoose.connect(process.env.MONGO_URI); `
-    - add conn to an async func -> iport and run func in server.js
+    - add conn to an async func -> import and run func in server.js
     - YAYAY
 
 * Models (schemas)
@@ -86,7 +86,30 @@ we could use try catch but instead express-async-handler is used
 
 (we made user ke roiutes after this)
 
-(added bcrypt.js to encrypt password,, jwt to create a token)
+(added bcrypt.js to encrypt password, jwt to create a token)
+*LIL ABOUT JWT (from jwt docs)
+    - RFC 7519
+    - transmit info securely as a json object
+    - using HMAC or RSA (public/ pvt)
+    - has 3 parts separated by .
+        header.payload.signature
+        - Header: has 2 things
+                type ie JWT
+                sign algo ie rsa, sha256 etc
+        - Payload: has claims 3 types
+                Registered Claims: (recommended)
+                    iss (issuer), exp (expiration time), sub (subject) etc..
+                Public Claims: (optional)
+                    (?)
+                Private Claims: (custom claims)
+                    share info that is neither Registered nor public
+            eg: {"sub":"4567898", "name":"Esha", "admin":true}
+            then base64url encoded 
+        - Signature: 
+            encoded header + encoded payload + secret + header wala algo and SIGNNN
+            eg: HMACSHA256( base64UrlEncode(header)+"."+base64UrlEncode(payload), secret)
+            this verifies integrity and if pvt key used can authenticate
+
 
 * registering a new user
     - check if fields populated with if (!name...) etc

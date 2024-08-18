@@ -51,7 +51,8 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 
   //   check for user email
   const user = await User.findOne({ email });
-  //   check password
+  console.log(user)
+   //   check password
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user.id,

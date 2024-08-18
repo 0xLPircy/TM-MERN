@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const goalSchema = mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, //type of objectId
       required: true,
-      ref: "User",
+      ref: "User", //tells which model reffering to
     },
     text: {
       type: String,

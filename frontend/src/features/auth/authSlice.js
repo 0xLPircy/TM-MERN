@@ -44,7 +44,7 @@ export const authSlice = createSlice({
       state.message = "";
     },
   },
-  // ASYNC THUNK FUNCTIONS
+  // ASYNC THUNK FUNCTIONS, checking for things 
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {

@@ -70,12 +70,14 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 // @route  GET /api/users/me
 // @access Private
 const getMe = expressAsyncHandler(async (req, res) => {
-  const { _id, name, email } = await User.findById(req.user.id);
-  res.status(200).json({
-    id: _id,
-    name,
-    email,
-  });
+  // ALREADY doing this in middleware
+  // const { _id, name, email } = await User.findById(req.user.id);
+  // res.status(200).json({
+  //   id: _id,
+  //   name,
+  //   email,
+  // });
+  res.status(200).json(req.user)
 });
 
 // Generate Token

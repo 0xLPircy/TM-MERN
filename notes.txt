@@ -219,3 +219,7 @@ kaise? Above, we take token which is encrypted id, we check if id exists in our 
         
 * Little about redux
     - store hota hai jisme reducers add karte hai
+
+
+NOTE: ALTHOUGH USE STATE WAS USING [user, isError, isSuccess, message, navigate, dispatch],
+    if dispatch not updated, user state not set (?)(WTF WHY)

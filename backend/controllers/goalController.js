@@ -37,15 +37,15 @@ const updateGoal = expressAsyncHandler(async (req, res) => {
     throw new Error("goal not foufnt");
   }
 
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
   // check if user exist
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("user not found");
   }
 
   // check if login user matches goal user
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("user not authorised not match");
   }
@@ -67,15 +67,15 @@ const deleteGoal = expressAsyncHandler(async (req, res) => {
   }
   // const deletedGoal = await Goal.findByIdAndDelete(req.params.id);
 
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
   // check if user exist
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("user not found");
   }
 
   // check if login user matches goal user
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("user not authorised not match");
   }

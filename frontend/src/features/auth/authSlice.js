@@ -63,6 +63,7 @@ export const authSlice = createSlice({
   // NOT ASYNC
   reducers: {
     reset: (state) => {
+      // not set back to init state cause user persists
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = false;

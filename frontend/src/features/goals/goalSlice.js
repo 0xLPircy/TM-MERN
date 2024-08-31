@@ -32,7 +32,8 @@ export const addGoal = createAsyncThunk(
 )
 
 export const getGoals = createAsyncThunk(
-    "goals/getAll", async (_, thunkAPI) => {
+    "goals/getAll", 
+    async (_, thunkAPI) => {
         try {
             // we are accessing a protected route so we need token
             // thunkAPI has a get state method which can get any state
